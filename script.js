@@ -1,16 +1,21 @@
-function volume_sphere() {
-  // Get the radius value from the form
+function volume_sphere(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get the radius value from the input field
   const radius = parseFloat(document.getElementById('radius').value);
 
-  // Check if the radius is a valid number
-  if (isNaN(radius) || radius <= 0) {
-    alert("Please enter a valid positive number for the radius.");
-    return;
+  if (!isNaN(radius) && radius >= 0) {
+    // Calculate the volume of the sphere
+    const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
+
+    // Display the calculated volume in the volume input field
+    document.getElementById('volume').value = volume.toFixed(2);
+  } else {
+    // If the input is not a valid number, display an error message
+    alert('Please enter a valid positive number for the radius.');
   }
-
-  // Calculate the volume of the sphere (V = (4/3) * π * r^3)
-  const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
-
-  // Display the calculated volume in the volume field
-  document.getElementById('volume').value = volume.toFixed(2);
 }
+
+window.onload = function () {
+  document.getElementById('MyForm').onsubmit = volume_sphere;
+};
